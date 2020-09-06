@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 
 //################################ DB CONNECTION #############################################
 let mongoose = require('mongoose');
-mongoose.connect(config.mongoUrl+'crybilla', { useNewUrlParser: true});
+mongoose.connect(config.mongoUrl+'crybilla', { useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 if(!db)
     console.log("Error connecting db");
@@ -18,18 +18,28 @@ else
 
 //############################## TEST API #####################################################
 app.get('/', (req, res, next) => {
-    res.send('Hello World with Express')
+    res.send('Hello World')
 });
 //################################ ROUTES #####################################################
 
-let cartRoutes= require("./router/cart");
+// let cartRoutes= require("./router/cart");
 let productRoutes= require("./router/product");
-let rulesRoutes= require("./router/rules");
+// let rulesRoutes= require("./router/rules");
 
 
-app.use('/cart', cartRoutes);
+// app.use('/cart', cartRoutes);
 app.use('/product', productRoutes);
-app.use('/rules', rulesRoutes);
+// app.use('/rules', rulesRoutes);
+
+// #################################### ERROR HANDLING ########################################
+// process
+//   .on('unhandledRejection', (reason, p) => {
+//     console.error(reason, 'Unhandled Rejection at Promise', p);
+//   })
+//   .on('uncaughtException', err => {
+//     console.error(err, 'Uncaught Exception thrown');
+//     process.exit(1);
+//   });
 
 //################################ SERVER LISTINING ON PORT ####################################
 

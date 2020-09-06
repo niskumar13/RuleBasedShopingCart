@@ -15,7 +15,7 @@ router.route('/products')
     .get(productController.index)
     .post(productController.new);
 
-router.route('/products/:product_id')
+router.route('/products/:productId')
     .get(productController.view)
     .patch(productController.update)
     .put(productController.update)

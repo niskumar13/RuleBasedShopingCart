@@ -2,8 +2,12 @@
 var mongoose = require('mongoose');
 
 var cartSchema = mongoose.Schema({
-    productId: {
-        type: String,
+    productDetail:{
+        type: Object,
+        required: true
+    },
+    discountDetail:{
+        type: Object,
         required: true
     },
     createdAt: {

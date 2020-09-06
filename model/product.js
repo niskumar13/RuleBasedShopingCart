@@ -10,13 +10,17 @@ var productSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    imageUrl:{
+        type: String,
+        required: false
+    },
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
  
-var product = module.exports = mongoose.model('product', productSchema);
+var Product = module.exports = mongoose.model('product', productSchema);
 module.exports.get = function (callback, limit) {
-    product.find(callback).limit(limit);
+    Product.find(callback).limit(limit);
 }

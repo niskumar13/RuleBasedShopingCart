@@ -68,9 +68,7 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-    cart.remove({
-        _id: req.params.cart_id
-    }, function (err, cart) {
+    cart.remove({_id: req.params.cart_id}, function (err, cart) {
         if (err)
             res.send(err);
         res.json({
