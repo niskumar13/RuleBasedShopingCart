@@ -24,12 +24,12 @@ app.get('/', (req, res, next) => {
 
 // let cartRoutes= require("./router/cart");
 let productRoutes= require("./router/product");
-// let rulesRoutes= require("./router/rules");
+let rulesRoutes= require("./router/rules");
 
 
 // app.use('/cart', cartRoutes);
 app.use('/product', productRoutes);
-// app.use('/rules', rulesRoutes);
+app.use('/rules', rulesRoutes);
 
 // #################################### ERROR HANDLING ########################################
 // process

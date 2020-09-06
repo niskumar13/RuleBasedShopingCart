@@ -4,22 +4,18 @@ let router = require('express').Router();
 router.get('/', function (req, res) {
     res.json({
         status: 'API Its Working',
-        message: 'Welcome to cyrbilla!',
+        message: 'Welcome to cyrbilla rules interface!',
     });
 });
 
 var rulesController = require('../controller/rulesController');
 
 
-// list product
-// add item product to cart
-// return product present in cart
-
 router.route('/rules')
     .get(rulesController.index)
     .post(rulesController.new);
 
-router.route('/rules/:rules_id')
+router.route('/rules/:rulesId')
     .get(rulesController.view)
     .patch(rulesController.update)
     .put(rulesController.update)

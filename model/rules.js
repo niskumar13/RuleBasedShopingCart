@@ -3,20 +3,15 @@ var mongoose = require('mongoose');
 var rulesSchema = mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: false
     },
-    actualprice: {
+    discountpercentage: {
         type: Number,
-        required: true
-    },
-    discountprice: {
-        type: Number,
-        required: true
+        required: false
     },
     minQuantity: {
         type: Number,
-        required: true, 
-        default: 0
+        required: false
     },
     additionalDiscount:{
         type: Number,
@@ -37,11 +32,11 @@ var rulesSchema = mongoose.Schema({
     },
     productId:{
         type: String,
-        required: true
+        required: false
     }
 });
 
-var rules = module.exports = mongoose.model('rules', rulesSchema);
+var Rules = module.exports = mongoose.model('rules', rulesSchema);
 module.exports.get = function (callback, limit) {
-    rules.find(callback).limit(limit);
+    Rules.find(callback).limit(limit);
 }
