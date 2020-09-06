@@ -1,8 +1,9 @@
-
+//############################################################################################
 let express = require('express');
 let config = require('./config/config.json');
 let app = express();
 
+// ###########################################################################################
 let bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -17,17 +18,16 @@ else
     console.log("Db connected successfully");
 
 //############################## TEST API #####################################################
-app.get('/', (req, res, next) => {
-    res.send('Hello World')
-});
+app.get('/', (req, res, next) => {res.send('Hello World')});
+
 //################################ ROUTES #####################################################
 
-// let cartRoutes= require("./router/cart");
+let cartRoutes= require("./router/cart");
 let productRoutes= require("./router/product");
 let rulesRoutes= require("./router/rules");
 
 
-// app.use('/cart', cartRoutes);
+app.use('/cart', cartRoutes);
 app.use('/product', productRoutes);
 app.use('/rules', rulesRoutes);
 
@@ -47,3 +47,4 @@ var port = process.env.PORT || config.port;
 app.listen(port, function () {
     console.log("server running on port " + port);
 });
+// #############################################################################################

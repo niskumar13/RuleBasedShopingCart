@@ -9,16 +9,17 @@ router.get('/', function (req, res) {
 });
 
 var cartController = require('../controller/cartController');
+const cart = require('../model/cart');
 
 
 router.route('/cart')
     .get(cartController.index)
     .post(cartController.new);
 
-router.route('/cart/:user_id')
-    .get(cartController.view)
-    .patch(cartController.update)
-    .put(cartController.update)
-    .delete(cartController.delete);
+router.route('/cart/:userId').get(cartController.viewCart);
+
+router.route('/cart/:userId/:productId')
+.patch(cartController.updateCart)
+.delete(cartController.delete);
 
 module.exports = router;

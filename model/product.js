@@ -18,7 +18,7 @@ var productSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     }
-});
+}, { versionKey: false });
  
 var Product = module.exports = mongoose.model('product', productSchema);
 module.exports.get = function (callback, limit) {

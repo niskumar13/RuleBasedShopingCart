@@ -21,10 +21,10 @@ exports.new = function (req, res) {
     var rules = new Rules();
     
     rules.name = req.body.name || null;
-    rules.discountpercentage = req.body.discountpercentage || null;
+    rules.discountpercentage = req.body.discountpercentage || 0;
+    rules.discountValue = req.body.discountValue || 0;
     rules.minQuantity = req.body.minQuantity || null;
-    rules.additionalDiscount =req.body.additionalDiscount || null;
-    rules.additionalDiscountMinCartValue = req.body.additionalDiscountMinCartValue || null;
+    rules.ruleTypeCode = req.body.ruleTypeCode;
     rules.createdAt = new Date();
     rules.isActive = true;
     rules.productId = req.body.productId || null;
@@ -59,9 +59,9 @@ exports.update = function (req, res) {
         
         rules.name = req.body.name || rules.name;
         rules.discountpercentage = req.body.discountpercentage || rules.discountpercentage;
+        rules.discountValue = req.body.discountValue || rules.discountValue;
         rules.minQuantity = req.body.minQuantity || rules.minQuantity;
-        rules.additionalDiscount =req.body.additionalDiscount || rules.additionalDiscount;
-        rules.additionalDiscountMinCartValue = req.body.additionalDiscountMinCartValue || rules.additionalDiscountMinCartValue;
+        rules.ruleTypeCode = req.body.ruleTypeCode || rules.ruleTypeCode;
         rules.createdAt = new Date();
         rules.isActive = true;
         rules.productId = req.body.productId || rules.productId;

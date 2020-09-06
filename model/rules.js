@@ -9,17 +9,17 @@ var rulesSchema = mongoose.Schema({
         type: Number,
         required: false
     },
+    discountValue: {
+        type: Number,
+        required: false
+    },
     minQuantity: {
         type: Number,
         required: false
     },
-    additionalDiscount:{
-        type: Number,
-        required: false
-    },
-    additionalDiscountMinCartValue:{
-        type: Number,
-        required: false
+    ruleTypeCode:{
+        type:String,
+        required: true
     },
     createdAt: {
         type: Date,
@@ -32,9 +32,10 @@ var rulesSchema = mongoose.Schema({
     },
     productId:{
         type: String,
-        required: false
+        unique : true, 
+        dropDups: true
     }
-});
+}, { versionKey: false });
 
 var Rules = module.exports = mongoose.model('rules', rulesSchema);
 module.exports.get = function (callback, limit) {
