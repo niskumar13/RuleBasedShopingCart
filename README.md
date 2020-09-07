@@ -40,7 +40,9 @@ RESPONSE_BODY:
 #######################################################################################
 
 METHOD: POST
+
 URL: http://localhost:3000/rules/rules/
+
 DESCRIPTION: this API will create rules for promotion of product. This example request is for 
 
 NOTE: 
@@ -49,6 +51,7 @@ NOTE:
 	3) ruleTypeCode 2 means discount applicable on total cart value
 
 EXAMPLE 1: for promo rules based on min number of particular product on cart
+
 	REQUEST_BODY:{ 
 		"name": "buy 3 @ 75",                        // promo name
 		"discountpercentage": 16.67,                 // discount percentage
@@ -56,6 +59,7 @@ EXAMPLE 1: for promo rules based on min number of particular product on cart
 		"ruleTypeCode": 1,                           // code for promo based on quantity of product
 		"productId": "5f5534fdc1758e320c9493c9"      // product id of product A
 	}
+
 	RESPONSE_BODY: {
 		"message": "New rules created!",
 		"data": {
@@ -97,14 +101,18 @@ EXAMPLE 2: for promo rules based on cart value
 #######################################################################################
 
 METHOD: POST
+
 URL: http://localhost:3000/cart/cart/
+
 DESCRIPTION: to add product in cart for a user. here user ID is taken randomly 
-REQEST_BODY:
+
+REQUEST_BODY:
 { 
     "userId": "123456789",                             // id of user 
     "quantity": 1,                                     // quantity of product
     "productId": "5f5534fdc1758e320c9493c9"            // product id of product which user is adding to cart
 }
+
 RESPONSE_BODY:
 {
     "message": "New data added to cart!",
@@ -129,8 +137,11 @@ RESPONSE_BODY:
 }
 
 #######################################################################################
+
 URL: http://localhost:3000/cart/cart/:userId
+
 METHOD: GET
+
 DESCRIPTION: for fetching all the product present in cart
 
 RESPONSE_BODY:
@@ -234,6 +245,7 @@ RESPONSE_BODY:
         "totalDiscount": 20
     }
 }
+
 #######################################################################################
 
 
