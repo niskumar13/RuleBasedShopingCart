@@ -71,6 +71,7 @@ EXAMPLE 1: for promo rules based on min number of particular product on cart
 	} 
 
 EXAMPLE 2: for promo rules based on cart value
+
 	REQUEST_BODY:{ 
 		"name": "Shop for 150 and pay 20 rupee less",  // promo name
 		"discountValue": 20,                           // discount value in terms of rupee 
