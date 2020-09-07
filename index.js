@@ -32,14 +32,12 @@ app.use('/product', productRoutes);
 app.use('/rules', rulesRoutes);
 
 // #################################### ERROR HANDLING ########################################
-// process
-//   .on('unhandledRejection', (reason, p) => {
-//     console.error(reason, 'Unhandled Rejection at Promise', p);
-//   })
-//   .on('uncaughtException', err => {
-//     console.error(err, 'Uncaught Exception thrown');
-//     process.exit(1);
-//   });
+process.on('unhandledRejection', (reason, p) => {
+    console.log(reason, 'Unhandled Rejection at Promise', p);
+  }).on('uncaughtException', err => {
+    console.log(err, 'Uncaught Exception thrown');
+    // process.exit(1);
+  });
 
 //################################ SERVER LISTINING ON PORT ####################################
 

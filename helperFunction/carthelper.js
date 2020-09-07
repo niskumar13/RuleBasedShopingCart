@@ -1,13 +1,11 @@
-var Cart = require('../model/cart');
 var Product = require('../model/product');
 var Rules = require('../model/rules');
 var config = require('../config/config.json');
 
+
 function getNewCartObject(reqData, callback){
     Product.findById(reqData.productId, function(err, productData){
         if(err){
-
-            console.log("---------------", err);
             callback(err);
         }else{
             var data = {};
@@ -37,49 +35,62 @@ function getNewCartObject(reqData, callback){
 function getCartvalue(cartData, callback){
     var data={};
     var totalPrice = 0;
-    cartData.forEach(element => {
-        totalPrice = totalPrice + parseInt(element.discountedPrice)
-    });
-    data.cartData = cartData;
-    data.totalCartValue = totalPrice;
-
-    Rules.find({"ruleTypeCode": config.ruleTypeCode.onCartValue, "isActive": true}, function(err, rulesData){
-        console.log(rulesData)
-        if(err){
-            callback(err);
-        }else{
-            data.cartValueAfterDiscount = parseInt(data.totalCartValue -  ((data.totalCartValue * rulesData[0].discountpercentage)/100));
-            callback(data);
-        }
+    var productIdList = [];
         
+    cartData.forEach(element=>{
+        productIdList.push(element.productDetail._id.toString().replace('"', ''));
     })
+    let uniqueItems = [...new Set(productIdList)];
 
-
-}
-
-function getCartValueMultiBuy(cartData, callback){
-    var data={};
     var totalPrice = 0;
-    cartData.forEach(element => {
-        totalPrice = totalPrice + parseInt(element.discountedPrice)
+    var totalDiscount = 0;
+    Rules.find({"ruleTypeCode": config.ruleTypeCode.onProduct, "isActive": true}, function(err, ruleData){
+  
+        uniqueItems.forEach(element=>{
+            var totalQuantity = 0;
+            var unitPrice = 0;
+            cartData.forEach(element2=>{
+                if(element == element2.productDetail._id){
+                    totalQuantity = totalQuantity + element2.quantity;
+                    unitPrice = element2.actualPrice;
+                }
+            });
+            var discountedPrice = 0;
+            ruleData.forEach(element2=>{
+                if(element == element2.productId){
+                    if(totalQuantity >= element2.minQuantity){
+                        var price = totalQuantity*unitPrice;
+                        discountedPrice = parseInt(price -  parseInt(parseInt(price * element2.discountpercentage)/100));
+                    }else{
+                        var price = totalQuantity*unitPrice;
+                        discountedPrice = price;
+                    }
+                }
+                if(ruleData.some(ruleData => ruleData.productId == element)){
+                    // do nothing
+                }else{
+                    var price = totalQuantity*unitPrice;
+                    discountedPrice = price;
+                }
+            });
+            totalPrice= totalPrice + discountedPrice;
+        });
+        data.cartData = cartData;
+        data.totalCartValue = totalPrice;
+
+
+        Rules.find({"ruleTypeCode": config.ruleTypeCode.onCartValue, "isActive": true}, function(err, rulesData){
+            if(err){
+                console.log("heres")
+                callback(err);
+            }else{
+                console.log(ruleData)
+                data.cartValueAfterDiscount = parseInt(data.totalCartValue - rulesData[0].discountValue);
+                callback(data);
+            }  
+        });
     });
-    data.cartData = cartData;
-    data.totalCartValue = totalPrice;
-
-    Rules.find({"ruleTypeCode": config.ruleTypeCode.onCartValue, "isActive": true}, function(err, rulesData){
-        console.log(rulesData)
-        if(err){
-            callback(err);
-        }else{
-            data.cartValueAfterDiscount = parseInt(data.totalCartValue -  ((data.totalCartValue * rulesData[0].discountpercentage)/100));
-            callback(data);
-        }
-        
-    })
-
-
 }
-
 
 module.exports = {
     getNewCartObject: getNewCartObject,

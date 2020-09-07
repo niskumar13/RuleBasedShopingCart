@@ -50,7 +50,7 @@ exports.new = function (req, res) {
 };
 
 exports.viewCart = function (req, res) {
-    Cart.find({"userId":req.params.userId}, function(err, cartData){
+    Cart.find({"userId":req.params.userId, "isActive":true}, function(err, cartData){
         if(err){
             res.send(err);
         }else{
