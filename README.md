@@ -1,8 +1,6 @@
-"# cybrillaAssignment" 
-
 Requirement:
-NODE : version 14.8.0
-mongoDB: version 4.4.0
+1) NODE : version 14.8.0
+2) mongoDB: version 4.4.0
 
 
 TO RUN APPLICATION:
@@ -13,28 +11,19 @@ Note:
 1) MONGODB server must be running 
 2) follow this order in order to add product 
 
-	add product
-		|
-		v
-	add rules
-		|
-		v
-	add product to cart
-		|
-		V
-	fetch cart for user
+	add product | add rules | add product to cart |	fetch cart for user
 
-###############################################################################################################
-												API LIST
-###############################################################################################################
+#######################################################################################
+									API LIST
+#######################################################################################
 
 METHOD:POST
 URL: http://localhost:3000/product/products/
-DESCRIPTION: this API will add product in db 
+DESCRIPTION: this API will add product in db
 REQUEST_BODY: 
 { 
-	"name": "A", 
-	"price": 30, 
+	"name": "A",
+	"price": 30,
 	"imageUrl": "https://m.media-amazon.com/images/I/51o5RmQtroL._AC_UY218_.jpg"
 }
 RESPONSE_BODY:
@@ -48,7 +37,7 @@ RESPONSE_BODY:
         "imageUrl": "https://m.media-amazon.com/images/I/51o5RmQtroL._AC_UY218_.jpg"
     }
 }
-###############################################################################################################
+#######################################################################################
 
 METHOD: POST
 URL: http://localhost:3000/rules/rules/
@@ -104,7 +93,7 @@ EXAMPLE 2: for promo rules based on cart value
 		}
 	}
 
-###############################################################################################################
+#######################################################################################
 
 METHOD: POST
 URL: http://localhost:3000/cart/cart/
@@ -138,7 +127,7 @@ RESPONSE_BODY:
     }
 }
 
-###############################################################################################################
+#######################################################################################
 URL: http://localhost:3000/cart/cart/:userId
 METHOD: GET
 DESCRIPTION: for fetching all the product present in cart
@@ -244,7 +233,7 @@ RESPONSE_BODY:
         "totalDiscount": 20
     }
 }
-###############################################################################################################
+#######################################################################################
 
 
 NOTE: 
