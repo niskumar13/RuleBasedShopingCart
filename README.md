@@ -18,16 +18,18 @@ Note:
 #######################################################################################
 
 METHOD:POST
+
 URL: http://localhost:3000/product/products/
+
 DESCRIPTION: this API will add product in db
-REQUEST_BODY: 
-{ 
+
+REQUEST_BODY: { 
 	"name": "A",
 	"price": 30,
 	"imageUrl": "https://m.media-amazon.com/images/I/51o5RmQtroL._AC_UY218_.jpg"
 }
-RESPONSE_BODY:
-{
+
+RESPONSE_BODY:{
     "message": "New product created!",
     "data": {
         "_id": "5f5534fdc1758e320c9493c9",
@@ -46,9 +48,9 @@ URL: http://localhost:3000/rules/rules/
 DESCRIPTION: this API will create rules for promotion of product. This example request is for 
 
 NOTE: 
-	1) only one promotion can be active agsinst a particular product
-	2) ruleTypeCode 1 means discount applicable on product with min quantiy
-	3) ruleTypeCode 2 means discount applicable on total cart value
+1) only one promotion can be active agsinst a particular product
+2) ruleTypeCode 1 means discount applicable on product with min quantiy
+3) ruleTypeCode 2 means discount applicable on total cart value
 
 EXAMPLE 1: for promo rules based on min number of particular product on cart
 
