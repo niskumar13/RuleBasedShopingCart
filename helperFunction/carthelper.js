@@ -36,14 +36,15 @@ function getCartvalue(cartData, callback){
     var data={};
     var totalPrice = 0;
     var productIdList = [];
-        
+    var priceWithoutDiscount = 0;
     cartData.forEach(element=>{
         productIdList.push(element.productDetail._id.toString().replace('"', ''));
+        priceWithoutDiscount = priceWithoutDiscount + (element.productDetail.price*element.quantity);
     })
     let uniqueItems = [...new Set(productIdList)];
 
     var totalPrice = 0;
-    var totalDiscount = 0;
+    
     Rules.find({"ruleTypeCode": config.ruleTypeCode.onProduct, "isActive": true}, function(err, ruleData){
   
         uniqueItems.forEach(element=>{
@@ -60,9 +61,11 @@ function getCartvalue(cartData, callback){
                 if(element == element2.productId){
                     if(totalQuantity >= element2.minQuantity){
                         var price = totalQuantity*unitPrice;
+                        
                         discountedPrice = parseInt(price -  parseInt(parseInt(price * element2.discountpercentage)/100));
                     }else{
                         var price = totalQuantity*unitPrice;
+                        
                         discountedPrice = price;
                     }
                 }
@@ -70,6 +73,7 @@ function getCartvalue(cartData, callback){
                     // do nothing
                 }else{
                     var price = totalQuantity*unitPrice;
+                    
                     discountedPrice = price;
                 }
             });
@@ -81,12 +85,21 @@ function getCartvalue(cartData, callback){
 
         Rules.find({"ruleTypeCode": config.ruleTypeCode.onCartValue, "isActive": true}, function(err, rulesData){
             if(err){
-                console.log("heres")
+                
                 callback(err);
             }else{
-                console.log(ruleData)
-                data.cartValueAfterDiscount = parseInt(data.totalCartValue - rulesData[0].discountValue);
-                callback(data);
+                if(data.totalCartValue>=rulesData[0].minPurchase){
+                    
+                    data.cartValueAfterDiscount = parseInt(data.totalCartValue - rulesData[0].discountValue);
+                    
+                    data.totalDiscount = priceWithoutDiscount - data.cartValueAfterDiscount;
+                    callback(data);
+                }else{
+                    data.cartValueAfterDiscount = data.totalCartValue;
+                    data.totalDiscount = priceWithoutDiscount - data.cartValueAfterDiscount;
+                    callback(data);
+                }
+                
             }  
         });
     });

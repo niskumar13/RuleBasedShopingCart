@@ -13,6 +13,10 @@ var rulesSchema = mongoose.Schema({
         type: Number,
         required: false
     },
+    minPurchase:{
+        type: Number,
+        required: false
+    },
     minQuantity: {
         type: Number,
         required: false
